@@ -1,41 +1,38 @@
+const { required, string } = require('joi');
 const mongoose = require('mongoose')
 
 const moviesSchema = new mongoose.Schema({
     title: String,
     description: String,
     duration: Number,
-    releaseDate: Date(),
+    releaseDate: String,
     genre: [String],
-    rating: Number
+    rating: Number,
+    poster: String
 
 })
 
 const showSchema = new mongoose.Schema({
     movie: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Movie', required: true
+        type: String, required: true
     },
-
     screen: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Screen', required: true
+        type: String, required: true
     },
-
-    startTime: { type: Date, required: true },
-
-    seats: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Seat'
-    }]
+    startTime: {
+        type: String, required: true
+    },
+    price: {
+        type: Number, required: true
+    }
 });
 
 const seatSchema = new mongoose.Schema({
     screen: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Screen', required: true
+        type: String, required: true
     },
     row: {
-        type: String, required: true
+        type: Number, required: true
     },
 
     number: {
@@ -50,22 +47,19 @@ const seatSchema = new mongoose.Schema({
 
 const bookingSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', required: true
+        type: String , required : true
     },
 
     show: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Show', required: true
+        type: String , required : true
     },
 
     seats: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Seat', required: true
+        type: String , required : true
     }],
 
     bookingTime: {
-        type: Date, default: Date.now
+        type:Date, default: Date.now
     },
 
     totalPrice: {
@@ -74,7 +68,7 @@ const bookingSchema = new mongoose.Schema({
 
 });
 
-const Movie = mongoose.model('Movie' , moviesSchema);
+const Movie = mongoose.model('Movie', moviesSchema);
 
 const Booking = mongoose.model('Booking', bookingSchema);
 
@@ -82,4 +76,4 @@ const Seat = mongoose.model('Seat', seatSchema);
 
 const Show = mongoose.model('Show', showSchema);
 
-module.exports = {Movie , Booking , Seat , Show}
+module.exports = { Movie, Booking, Seat, Show }
