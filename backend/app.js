@@ -1,8 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const bodyparser = require('body-parser')
 const cors = require('cors')
 const userRouter = require('./src/router/userRouter')
+const moviesRouter = require('./src/router/moviesRouter')
+const foodRouter = require('./src/router/foodRouter')
 require('dotenv').config()
 
 const app = express()
@@ -14,9 +17,11 @@ app.use(cors({
     credentials:true
 }))
 
-app.use(express.json())
+app.use(bodyparser.json())
 app.use(cookieParser())
 app.use('/', userRouter)
+app.use('/' , moviesRouter)
+app.use('/' , foodRouter)
 
 mongoose.connect('mongodb://localhost:27017/SecurityBoats')
     .then(() => {
