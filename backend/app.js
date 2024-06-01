@@ -6,6 +6,7 @@ const cors = require('cors')
 const userRouter = require('./src/router/userRouter')
 const moviesRouter = require('./src/router/moviesRouter')
 const foodRouter = require('./src/router/foodRouter')
+const adminRouter = require('./src/router/adminRouter')
 require('dotenv').config()
 
 const app = express()
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use('/', userRouter)
 app.use('/' , moviesRouter)
 app.use('/' , foodRouter)
+app.use('/' , adminRouter)
 
 mongoose.connect('mongodb://localhost:27017/SecurityBoats')
     .then(() => {

@@ -3,21 +3,21 @@ const { users } = require('./userSchema')
 const { required } = require('joi')
 
 const menuSchema = new mongoose.Schema({
-    name: {type:String , required: true},
-    description: {type:String , required: true},
-    price: {type:Number , required: true},
-    category: {type:String , required: true},
-    available: {type:Boolean , required: true},
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    price: { type: Number, required: true },
+    category: { type: String, required: true },
+    available: { type: Boolean, required: true },
 })
 
 const orderSchema = new mongoose.Schema({
-    users: {type:String , required: true},
+    users: { type: String, required: true },
     item: [{
         item: String,
         quantity: { type: Number, min: 1 }
     }],
 
-    totalPrice: {type:Number , required: true},
+    totalPrice: { type: Number, required: true },
 
     orderDate: { type: Date, default: Date.now() },
 
@@ -34,7 +34,26 @@ const orderSchema = new mongoose.Schema({
     }
 })
 
-const Menu = mongoose.model('Menu' , menuSchema)
-const Order = mongoose.model('Order' , orderSchema)
 
-module.exports = {Menu , Order}
+const cartSchema = new mongoose.Schema({
+    user: {
+        type:String , required: true,
+    },
+    items: [{
+        item: {
+            type: String, required: true,
+        },
+        quantity: {
+            type: Number, required: true, min: 1,
+        }
+    }],
+    totalPrice: {
+        type: Number, required: true, default: 0,
+    }
+})
+
+const Menu = mongoose.model('Menu', menuSchema)
+const Order = mongoose.model('Order', orderSchema)
+const Cart = mongoose.model('Cart' , cartSchema)
+
+module.exports = { Menu, Order , Cart}
