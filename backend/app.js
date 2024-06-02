@@ -1,24 +1,25 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const cookieParser = require('cookie-parser')
-const bodyparser = require('body-parser')
-const cors = require('cors')
-const userRouter = require('./src/router/userRouter')
-const moviesRouter = require('./src/router/moviesRouter')
-const foodRouter = require('./src/router/foodRouter')
-const adminRouter = require('./src/router/adminRouter')
-require('dotenv').config()
+import express from 'express'
+import mongoose from 'mongoose'
+import cookieParser from 'cookie-parser'
+import bodyparser from 'body-parser'
+import cors from 'cors'
+import userRouter from './src/router/userRouter.js'
+import moviesRouter from './src/router/moviesRouter.js'
+import foodRouter from './src/router/foodRouter.js'
+import adminRouter from './src/router/adminRouter.js'
+import dotenv from 'dotenv';
+dotenv.config()
 
 const app = express()
-const PORT = process.env.PORT 
+const PORT = process.env.PORT || 8001
 
 app.use(cors({
-    origin:true,
-    methods:["GET" , "POST" , "PUT" , "DELETE"],
-    credentials:true
+    origin: 'http://localhost:5173', 
+    credentials: true 
 }))
 
 app.use(bodyparser.json())
+app.use(express.json())
 app.use(cookieParser())
 app.use('/', userRouter)
 app.use('/' , moviesRouter)

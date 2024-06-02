@@ -1,4 +1,4 @@
-const { Seat } = require('../../model/moviesSchema')
+import { Seat } from '../../model/moviesSchema.js'
 
 
 const createSeats = async (req, res) => {
@@ -75,4 +75,4 @@ const deleteSeats = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 }
-module.exports = { createSeats, viewAllSeat, updatedSeat, deleteSeats }
+export { createSeats, viewAllSeat, updatedSeat, deleteSeats }

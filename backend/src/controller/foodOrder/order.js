@@ -1,13 +1,13 @@
-const { Order, Menu } = require('../../model/foodSchema')
-const { users } = require('../../model/userSchema')
+import { Order, Menu } from '../../model/foodSchema.js'
 
 const placeOrder = async (req, res) => {
     const { user, items } = req.body;
-
+    console.log("jaskjaklsjkl",items);
     try {
         let totalPrice = 0;
-        for (let i = 0; i <= items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             const menuItem = await Menu.findOne({ name: items[i].item });
+            console.log(menuItem);
             if (!menuItem) {
                 return res.status(404).json({ error: `Item ${items[i].item} not found in menu` });
             }
@@ -15,8 +15,8 @@ const placeOrder = async (req, res) => {
         }
 
         const order = new Order({
-            user,
-            items,
+            users:user,
+            item:items,
             totalPrice
         });
 
@@ -94,4 +94,4 @@ const cancelOrder = async (req, res) => {
     }
 };
 
-module.exports = {placeOrder , getUserOrders , updateOrderStatus , cancelOrder}
+export {placeOrder , getUserOrders , updateOrderStatus , cancelOrder}

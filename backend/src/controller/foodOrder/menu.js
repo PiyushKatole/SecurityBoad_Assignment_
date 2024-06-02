@@ -1,4 +1,4 @@
-const {Menu} = require('../../model/foodSchema');
+import {Menu} from '../../model/foodSchema.js';
 
 const addMenu = async(req , res) => {
     const {name} = req.body
@@ -64,4 +64,4 @@ const deletedMenu = async (req, res) => {
     }
 }
 
-module.exports = {addMenu , viewMenu , updatedMenu , deletedMenu}
+export {addMenu , viewMenu , updatedMenu , deletedMenu}

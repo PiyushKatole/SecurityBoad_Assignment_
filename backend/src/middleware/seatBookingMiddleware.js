@@ -13,4 +13,4 @@ const findConsecutiveSeats = (seats, count) => {
     return null;
 };
 
-module.exports = {findConsecutiveSeats}
+export default findConsecutiveSeats

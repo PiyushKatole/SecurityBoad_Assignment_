@@ -1,5 +1,4 @@
-const { required, string } = require('joi');
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const moviesSchema = new mongoose.Schema({
     title: String,
@@ -76,4 +75,4 @@ const Seat = mongoose.model('Seat', seatSchema);
 
 const Show = mongoose.model('Show', showSchema);
 
-module.exports = { Movie, Booking, Seat, Show }
+export { Movie, Booking, Seat, Show }

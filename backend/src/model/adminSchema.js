@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
 const adminSchem = new mongoose.Schema({
     name:{type:String , require:true},
@@ -9,4 +9,4 @@ const adminSchem = new mongoose.Schema({
 
 const Admin = mongoose.model('Admin' , adminSchem)
 
-module.exports = {Admin}
+export default Admin

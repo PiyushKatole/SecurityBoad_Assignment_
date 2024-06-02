@@ -1,6 +1,6 @@
-const { Seat, Show, Booking } = require('../../model/moviesSchema');
-const {users} = require('../../model/userSchema')
-const {findConsecutiveSeats} = require('../../middleware/seatBookingMiddleware')
+import { Seat, Show, Booking } from '../../model/moviesSchema.js';
+import users from  '../../model/userSchema.js'
+import findConsecutiveSeats from '../../middleware/seatBookingMiddleware.js'
 
 const seatBooking = async (req, res) => {
     const { user, movie, seats } = req.body;
@@ -66,4 +66,4 @@ const cancelSeatBooking = async (req, res) => {
 }
 
 
-module.exports = {seatBooking , cancelSeatBooking};
+export {seatBooking , cancelSeatBooking};

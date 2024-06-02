@@ -1,5 +1,5 @@
-const {Menu , Cart } = require('../../model/foodSchema')
-const {users} = require('../../model/userSchema')
+import {Menu , Cart } from '../../model/foodSchema.js'
+import {users} from '../../model/userSchema.js'
 
 const addToCart = async(req , res) =>{
 
@@ -76,4 +76,4 @@ const checkout = async (req, res) => {
 };
 
 
-module.exports = {addToCart , viewCart , checkout}
+export {addToCart , viewCart , checkout}

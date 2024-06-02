@@ -1,6 +1,6 @@
-const {Admin} = require('../../model/adminSchema')
-const {createToken} = require('../../middleware/auth')
-const bcrypt = require('bcrypt')
+import Admin from '../../model/adminSchema.js'
+import {adminCreateToken} from '../../middleware/adminAuthentication.js'
+import bcrypt from 'bcrypt'
 const salt = 10
 
 const adminSignup = async(req , res) =>{
@@ -42,7 +42,7 @@ const adminLogin = async(req , res) =>{
         const isPasswordMatch = await bcrypt.compare(password , check.password)
 
         if (isPasswordMatch) {
-            const token = createToken(email)
+            const token = adminCreateToken(email)
             res.cookie('token', token)
             res.status(200).json({ message: "successfully login..." })
         } else {
@@ -70,66 +70,32 @@ const viewAdmin = async (req, res) => {
     }
 }
 
+
+
 const updateAdmin = async (req, res) => {
-    const { email, password, ...otherDetails } = req.body; // Destructure to separate password
+    const { email , password} = req.body
     try {
-        const findData = await Admin.findOne({ email });
-        console.log(findData);
+        console.log("user request " , req.user);
+        const findData = await Admin.findOne({ email })
         if (!findData) {
-            return res.status(400).json({ error: "Please sign up your account." });
+            return res.status(400).json({ error: "Please sign up your account." })
         }
-
-        // Verify if the user is authorized to update this account
+        
+        
         if (req.user.email !== findData.email) {
-            return res.status(403).json({ error: "User not found or unauthorized." });
+            return res.status(400).json({ message: "User not found or unauthorized " });
         }
 
-        // Hash the new password
-        let passwordHash;
-        if (password) {
-            passwordHash = await bcrypt.hash(password, saltRounds);
-        }
+        let passwordHash = await bcrypt.hash(password, salt)
+        const getData = { ...req.body, password: passwordHash }
+        const updateData = await Admin.findOneAndUpdate({ email }, { $set: getData }, { new: true })
+        res.status(200).json(updateData)
 
-        // Prepare the update data
-        const updateData = { ...otherDetails };
-        if (passwordHash) {
-            updateData.password = passwordHash;
-        }
-
-        // Update the admin data
-        const updatedAdmin = await Admin.findOneAndUpdate({ email }, { $set: updateData }, { new: true });
-        res.status(200).json(updatedAdmin);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Something went wrong in the update function." });
+        console.log(error);
+        res.status(500).json({ error: "Something went wrong in update function " })
     }
-};
-
-// const updateAdmin = async (req, res) => {
-//     const { email , password} = req.body
-//     try {
-//         const findData = await Admin.findOne({ email })
-//         console.log(findData);
-//         if (!findData) {
-//             return res.status(400).json({ error: "Please sign up your account." })
-//         }
-        
-        
-//         if (req.user.email !== findData.email) {
-//             return res.status(400).json({ message: "User not found or unauthorized " });
-//         }
-
-
-//         let passwordHash = await bcrypt.hash(password, salt)
-//         const getData = { ...req.body, password: passwordHash }
-//         const updateData = await users.findOneAndUpdate({ email }, { $set: getData }, { new: true })
-//         res.status(200).json(updateData)
-
-//     } catch (error) {
-//         console.log(error);
-//         res.status(500).json({ error: "Something went wrong in update function " })
-//     }
-// }
+}
 
 const deleteAdmin = async (req, res) => {
     const { email } = req.body;
@@ -144,7 +110,7 @@ const deleteAdmin = async (req, res) => {
             return res.status(403).json({ message: "Unauthorized. You can only delete your own account." });
         }
 
-        await users.findOneAndDelete({ email});
+        await Admin.findOneAndDelete({ email});
         res.status(200).json({ message: "User deleted successfully." });
     } catch (error) {
         console.log(error);
@@ -152,4 +118,4 @@ const deleteAdmin = async (req, res) => {
     }
 };
 
-module.exports = {adminSignup , adminLogin , viewAdmin , updateAdmin , deleteAdmin}
+export {adminSignup , adminLogin , viewAdmin , updateAdmin , deleteAdmin}

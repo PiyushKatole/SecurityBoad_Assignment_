@@ -1,6 +1,5 @@
-const mongoose = require('mongoose')
-const { users } = require('./userSchema')
-const { required } = require('joi')
+import mongoose from 'mongoose'
+
 
 const menuSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -8,6 +7,7 @@ const menuSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     category: { type: String, required: true },
     available: { type: Boolean, required: true },
+    imageUrl:{type:String , required:true}
 })
 
 const orderSchema = new mongoose.Schema({
@@ -56,4 +56,4 @@ const Menu = mongoose.model('Menu', menuSchema)
 const Order = mongoose.model('Order', orderSchema)
 const Cart = mongoose.model('Cart' , cartSchema)
 
-module.exports = { Menu, Order , Cart}
+export { Menu, Order , Cart}

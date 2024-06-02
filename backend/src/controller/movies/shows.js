@@ -1,4 +1,4 @@
-const { Movie, Seat, Show } = require('../../model/moviesSchema')
+import { Movie, Seat, Show } from '../../model/moviesSchema.js'
 
 const createShow = async (req, res) => {
     const { movie, screen, startTime, price } = req.body;
@@ -76,4 +76,4 @@ const deleteScreen = async(req , res) =>{
 }
 
 
-module.exports = { createShow , viewAllScreen , updateScreen , deleteScreen}
+export { createShow , viewAllScreen , updateScreen , deleteScreen}

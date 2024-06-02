@@ -2,21 +2,20 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv';
 dotenv.config()
 
-const createToken = (email , password) =>{
-    return jwt.sign({email, password} , process.env.SecretKey , {expiresIn:'1h'})
+console.log("user dotenc" , process.env.AdminKey);
+const adminCreateToken = (email) =>{
+    return jwt.sign({email} , process.env.AdminKey , {expiresIn:'1h'})
 }
 
-const verifyToken = async(req , res , next) =>{
+const adminVerifyToken = async(req , res , next) =>{
     
-    const token = req.cookies.token 
-    console.log(token)
+    const token = req.cookies.token || req.headers['authorization'];
     if (!token){
         return res.status(401).json({error : "Access denied. No token provided."})
     }
 
     try {
-        const decodeToken = jwt.verify(token , process.env.SecretKey)
-        console.log("verifyToken" , decodeToken);
+        const decodeToken = jwt.verify(token , process.env.AdminKey)
         // const getUserData = await users.findOne({email: decodeToken.email})
         // console.log(getUserData);
         req.user = decodeToken
@@ -29,4 +28,4 @@ const verifyToken = async(req , res , next) =>{
     }
 }
 
-export {createToken , verifyToken}
+export {adminCreateToken , adminVerifyToken}

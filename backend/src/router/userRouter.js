@@ -1,5 +1,5 @@
-const express = require('express')
-const {userSignup , userLogin} = require('../controller/user')
+import express from 'express'
+import {userSignup , userLogin} from '../controller/user.js'
 
 const router = express.Router()
 
@@ -7,4 +7,4 @@ router.post('/api/user/signup' , userSignup)
 
 router.post('/api/user/login' , userLogin)
 
-module.exports = router
+export default router

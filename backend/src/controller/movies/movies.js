@@ -1,4 +1,4 @@
-const { Movie} = require('../../model/moviesSchema');
+import { Movie} from '../../model/moviesSchema.js';
 
 const addMovies = async (req, res) => {
     const { title } = req.body
@@ -42,5 +42,14 @@ const movieDetails = async (req, res) => {
 };
 
 
+const getMovies = async(req ,res) => {
+    try {
+        const findMovies = await Movie.find({})
 
-module.exports = { addMovies, movieDetails }
+        res.status(200).json({findMovies})
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"server error in get movies "})
+    }
+}
+export  { addMovies, movieDetails , getMovies}

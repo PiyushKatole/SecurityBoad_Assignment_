@@ -1,22 +1,24 @@
-const {users} = require('../model/userSchema');
-const { createToken } = require('../middleware/auth');
+import users from '../model/userSchema.js';
+import { createToken } from '../middleware/auth.js';
 
-const bcrypt = require('bcrypt')
+import bcrypt from 'bcrypt'
 const salt = 10
 
 const userSignup = async(req , res) =>{
     const {email , password} = req.body
+
     try {
         const userData = await users.findOne({email})
-
+        
         if (userData){
             return res.status(400).json({message:"User already signup account"})
         }
-
+        
         const passwordHash = await bcrypt.hash(password , salt)
         const submit = new users({...req.body ,password: passwordHash})
         await submit.save()
-
+        
+        console.log(submit);
         res.status(201).json({message:"User signup successfully..."})
 
     } catch (error) {
@@ -37,8 +39,9 @@ const userLogin = async(req , res) => {
         const isPasswordMatch = await bcrypt.compare(password , userData.password)
 
         if (isPasswordMatch) {
-            const token = createToken(email)
+            const token = createToken(email , password)
             res.cookie('token', token)
+            console.log(token);
             res.status(200).json({ message: "successfully login..." })
         } else {
             return res.status(400).json({ error: "password is not matching..." })
@@ -50,4 +53,4 @@ const userLogin = async(req , res) => {
     }
 }
 
-module.exports = {userSignup , userLogin}
+export {userSignup , userLogin}
