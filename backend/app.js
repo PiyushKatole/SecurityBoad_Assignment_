@@ -27,7 +27,7 @@ app.use('/' , moviesRouter)
 app.use('/' , foodRouter)
 app.use('/' , adminRouter)
 
-mongoose.connect('mongodb://localhost:27017/SecurityBoats')
+mongoose.connect(process.env.DBURL)
     .then(() => {
         console.log("connecting successfully...");
     }).catch((error) => {
