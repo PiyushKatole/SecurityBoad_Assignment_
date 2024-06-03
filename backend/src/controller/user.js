@@ -42,9 +42,9 @@ const userLogin = async(req , res) => {
             const token = createToken(email , password)
             res.cookie('token', token)
             console.log(token);
-            res.status(200).json({ message: "successfully login..." })
+            res.status(200).json({ message: "successfully login...", token })
         } else {
-            return res.status(400).json({ error: "password is not matching..." })
+            return res.status(400).json({ error: "password is not matching..."})
         }
 
     } catch (error) {

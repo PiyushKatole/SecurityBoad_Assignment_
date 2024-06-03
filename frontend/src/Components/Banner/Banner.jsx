@@ -1,6 +1,6 @@
 import React from 'react'
-import banner1 from '../../assets/3_idots.jpg'
-import banner2 from '../../assets/premalu.jpg'
+import banner1 from '../../assets/inception.jpg'
+import banner2 from '../../assets/vanam.jpg'
 import banner3 from '../../assets/laapata_ladies.jpg'
 
 function Banner() {

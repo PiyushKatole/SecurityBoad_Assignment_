@@ -1,33 +1,33 @@
 import { Order, Menu } from '../../model/foodSchema.js'
 
-const placeOrder = async (req, res) => {
-    const { user, items } = req.body;
-    console.log("jaskjaklsjkl",items);
-    try {
-        let totalPrice = 0;
-        for (let i = 0; i < items.length; i++) {
-            const menuItem = await Menu.findOne({ name: items[i].item });
-            console.log(menuItem);
-            if (!menuItem) {
-                return res.status(404).json({ error: `Item ${items[i].item} not found in menu` });
+    const placeOrder = async (req, res) => {
+        const { user, items } = req.body;
+        console.log("jaskjaklsjkl",items);
+        try {
+            let totalPrice = 0;
+            for (let i = 0; i < items.length; i++) {
+                const menuItem = await Menu.findOne({ name: items[i].item });
+                console.log(menuItem);
+                if (!menuItem) {
+                    return res.status(404).json({ error: `Item ${items[i].item} not found in menu` });
+                }
+                totalPrice += menuItem.price * items[i].quantity;
             }
-            totalPrice += menuItem.price * items[i].quantity;
+
+            const order = new Order({
+                users:user,
+                item:items,
+                totalPrice
+            });
+
+            await order.save();
+
+            res.status(201).json(order);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Server error' });
         }
-
-        const order = new Order({
-            users:user,
-            item:items,
-            totalPrice
-        });
-
-        await order.save();
-
-        res.status(201).json(order);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
-    }
-};
+    };
 
 
 

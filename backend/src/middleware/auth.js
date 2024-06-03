@@ -17,8 +17,6 @@ const verifyToken = async(req , res , next) =>{
     try {
         const decodeToken = jwt.verify(token , process.env.SecretKey)
         console.log("verifyToken" , decodeToken);
-        // const getUserData = await users.findOne({email: decodeToken.email})
-        // console.log(getUserData);
         req.user = decodeToken
         
         next()

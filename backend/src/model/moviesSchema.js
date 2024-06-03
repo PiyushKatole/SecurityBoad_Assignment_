@@ -45,15 +45,18 @@ const seatSchema = new mongoose.Schema({
 });
 
 const bookingSchema = new mongoose.Schema({
-    user: {
+    email: {
         type: String , required : true
     },
 
-    show: {
+    movie: {
         type: String , required : true
     },
 
-    seats: [{
+    number:{
+        type:Number , required:true
+    },  
+    seat: [{
         type: String , required : true
     }],
 

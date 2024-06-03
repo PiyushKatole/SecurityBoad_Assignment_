@@ -1,30 +1,122 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Ticket() {
+    const [email, setEmail] = useState('');
+    const [number, setNumber] = useState('');
+    const [movie, setMovie] = useState('');
+    const [seat, setSeat] = useState('');
+    const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setSuccessMessage('');
+
+        try {
+            const payload = { email, number, movie, seat: parseInt(seat) };
+            console.log('Request payload:', payload);
+
+            const response = await axios.post('http://localhost:8001/api/booked/seat', payload);
+
+            console.log('Response:', response.data);
+            setSuccessMessage('Ticket booked successfully! Redirecting to home...');
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+
+        } catch (error) {
+            console.error('Error response:', error);
+            if (error.response) {
+                console.error('Error response data:', error.response.data);
+                setError(error.response.data.error || 'Something went wrong, please check it.');
+            } else {
+                setError('Something went wrong, please try again.');
+            }
+        }
+    };
+
     return (
-        <div>
-            <div class="bd-example m-0 border-0">
+        <div className='container mt-4' style={{ width: '35vw' }}>
+            <div className="modal-content rounded-4 shadow">
+                <div className="modal-header p-5 pb-4">
+                    <h1 className="fw-bold mb-0 fs-2">Book Ticket</h1>
+                </div>
 
-                <form>
-                    <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                <div className="modal-body p-5 pt-0">
+                    <form className="" onSubmit={handleSubmit}>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="email"
+                                className="form-control rounded-3"
+                                id="floatingEmail"
+                                placeholder="name@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="floatingEmail">Email address</label>
+                        </div>
 
+                        <div className="form-floating mb-3">
+                            <input
+                                type="tel"
+                                className="form-control rounded-3"
+                                id="floatingNumber"
+                                placeholder="Enter your number"
+                                value={number}
+                                onChange={(e) => setNumber(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="floatingNumber">Mobile number</label>
+                        </div>
+
+                        <div className="form-floating mb-3">
+                            <select 
+                                className="form-select" 
+                                id="floatingMovie" 
+                                aria-label="Default select example" 
+                                value={movie} 
+                                onChange={(e) => setMovie(e.target.value)}
+                                required
+                            >
+                                <option value="">Select Movie</option>
+                                <option value="Hacker">Hacker</option>
+                                <option value="Robot">Robot</option>
+                                <option value="Mission Mangal">Mission Mangal</option>
+                                <option value="3 Idiots">3 Idiots</option>
+                            </select>
+                            <label htmlFor="floatingMovie">Movie</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <select 
+                                className="form-select" 
+                                id="floatingMovie" 
+                                aria-label="Default select example" 
+                                value={seat} 
+                                onChange={(e) => setSeat(e.target.value)}
+                                required
+                            >
+                                <option value="">Select Seat</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                            </select>
+                            <label htmlFor="floatingMovie">Movie</label>
+                        </div>
+
+                        <button className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Book Ticket</button>
+                        {error && <small className="text-danger">{error}</small>}
+                        {successMessage && <small className="text-success">{successMessage}</small>}
+                    </form>
+                </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Ticket
+export default Ticket;

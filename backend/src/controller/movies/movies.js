@@ -20,13 +20,12 @@ const addMovies = async (req, res) => {
 
 
 const movieDetails = async (req, res) => {
-    const searchKey = req.query.title;
 
+    const searchKey = req.query.title
     try {
         const getMovie = await Movie.find({
             $or: [
-                { title: { $regex: searchKey, $options: 'i' } },
-                { genre: { $regex: searchKey, $options: 'i' } }
+                { title: { $regex: searchKey, $options: 'i' } }
             ]
         });
 
@@ -44,7 +43,7 @@ const movieDetails = async (req, res) => {
 
 const getMovies = async(req ,res) => {
     try {
-        const findMovies = await Movie.find({})
+        const findMovies = await Movie.find()
 
         res.status(200).json({findMovies})
     } catch (error) {
