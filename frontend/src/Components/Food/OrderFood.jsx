@@ -21,7 +21,7 @@ const OrderFood = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:8001/api/order/place', payload);
+            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/order/place', payload);
             console.log('Response:', response.data);
             setSuccessMessage('Order placed successfully!');
             setTimeout(() => {

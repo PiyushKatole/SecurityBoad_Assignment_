@@ -15,7 +15,7 @@ function Login() {
         setSuccessMessage('');
 
         try {
-            const response = await axios.post('http://localhost:8001/api/user/login', { email, password });
+            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/user/login', { email, password });
             console.log(response)
             localStorage.setItem('token', response.data.token); 
             console.log(response.data.token);

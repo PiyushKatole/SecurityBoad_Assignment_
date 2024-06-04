@@ -9,7 +9,7 @@ function SearchMovies({ searchKey }) {
         if (searchKey) {
             const fetchMovies = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8001/api/movie/search?title=${searchKey}`);
+                    const response = await axios.get(`https://securityboat-assignment-lw1p.onrender.com/api/movie/search?title=${searchKey}`);
                     setMovies(response.data);
                 } catch (error) {
                     console.error('Error fetching movies:', error);

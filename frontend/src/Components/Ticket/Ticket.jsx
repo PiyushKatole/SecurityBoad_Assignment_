@@ -20,7 +20,7 @@ function Ticket() {
             const payload = { email, number, movie, seat: parseInt(seat) };
             console.log('Request payload:', payload);
 
-            const response = await axios.post('http://localhost:8001/api/booked/seat', payload);
+            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/booked/seat', payload);
 
             console.log('Response:', response.data);
             setSuccessMessage('Ticket booked successfully! Redirecting to home...');

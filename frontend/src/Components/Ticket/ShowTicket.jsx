@@ -11,7 +11,7 @@ function GetTickets() {
         setError('');
 
         try {
-            const response = await axios.get(`http://localhost:8001/api/booked/tickets?email=${email}`);
+            const response = await axios.get(`https://securityboat-assignment-lw1p.onrender.com/api/booked/tickets?email=${email}`);
             console.log('Response data:', response.data);
             setTickets(response.data);
         } catch (error) {

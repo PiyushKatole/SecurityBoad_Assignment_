@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function FoodOrder() {
   const [menu, setMenu] = useState([]);
   const [error, setError] = useState('');
-  const url = 'http://localhost:8001/api/view/menu'
+  const url = 'https://securityboat-assignment-lw1p.onrender.com/api/view/menu'
 
   useEffect(() => {
     const fetchMenu = async () => {

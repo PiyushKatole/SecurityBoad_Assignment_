@@ -16,7 +16,7 @@ function Signup() {
         setSuccessMessage('');
 
         try {
-            const response = await axios.post('http://localhost:8001/api/user/signup', { name, email, password });
+            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/user/signup', { name, email, password });
 
             setSuccessMessage('Signup successful! Redirecting to login...');
             setTimeout(() => {
