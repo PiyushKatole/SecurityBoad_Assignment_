@@ -48,10 +48,10 @@ const seatBooking = async (req, res) => {
 }
 
 const getBookedTickets = async (req, res) => {
-    const {email} = req.body
+    const {email} = req.body; 
     console.log('Email:', email);
     try {   
-        const tickets = await Booking.findOne({email});
+        const tickets = await Booking.findOne({ email });
         console.log('Tickets:', tickets);
         res.status(200).json(tickets);
     } catch (error) {
@@ -59,6 +59,7 @@ const getBookedTickets = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+
 
 const cancelSeatBooking = async (req, res) => {
     const { user } = req.body;
