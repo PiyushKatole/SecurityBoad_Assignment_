@@ -31,7 +31,6 @@ function FoodOrder() {
 
   return (
     <div className="container mt-4">
-
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {menu.length > 0 ? (
@@ -43,9 +42,9 @@ function FoodOrder() {
                     <img src={item.imageUrl} className="bd-placeholder-img card-img-top" width="100%" height="225" alt={item.name} />
                   )}
                   <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
+                    <h4 className="card-title">{item.name}</h4>
                     <p className="card-text">{item.description}</p>
-                    <p className="card-text">price: ${item.price}</p>
+                    <h5 className="card-text">price: ₹{item.price}</h5>
                   </div>
                 </div>
               </Link>
@@ -59,7 +58,6 @@ function FoodOrder() {
       </div>
 
     </div >
-
   );
 }
 

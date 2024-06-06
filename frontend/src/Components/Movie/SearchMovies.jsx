@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Banner from '../Banner/Banner';
 
 function SearchMovies({ searchKey}) {
     const [movies, setMovies] = useState([]);
@@ -10,7 +9,7 @@ function SearchMovies({ searchKey}) {
         if (searchKey) {
             const fetchMovies = async () => {
                 try {
-                    const response = await axios.get(`http://localhost:8001/api/movie/search?title=${searchKey}`);
+                    const response = await axios.get(`https://securityboat-assignment-lw1p.onrender.com/api/movie/search?title=${searchKey}`);
                     setMovies(response.data);
                 
                 } catch (error) {

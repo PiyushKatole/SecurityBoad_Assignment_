@@ -1,7 +1,7 @@
 import React from 'react'
 import banner1 from '../../assets/inception.jpg'
-import banner2 from '../../assets/vanam.jpg'
-import banner3 from '../../assets/laapata_ladies.jpg'
+import banner2 from '../../assets/kingdom.jpg'
+import banner3 from '../../assets/rrr.jpg'
 
 function Banner() {
     const imageStyle = {

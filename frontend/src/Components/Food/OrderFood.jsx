@@ -91,8 +91,8 @@ const OrderFood = () => {
                             <label htmlFor="floatingQuantity">Quantity</label>
                         </div>
                         <button className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Order</button>
-                        {error && <small className="text-danger">{error}</small>}
-                        {successMessage && <small className="text-success">{successMessage}</small>}
+                        {error && <small className="text-danger" style={{fontSize:'20px'}}>{error}</small>}
+                        {successMessage && <small className="text-success" style={{fontSize:'20px'}} >{successMessage}</small>}
                     </form>
                 </div>
             </div>
