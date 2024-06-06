@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+const url = 'https://securityboat-assignment-lw1p.onrender.com/api/view/menu'
 
 function FoodOrder() {
   const [menu, setMenu] = useState([]);
   const [error, setError] = useState('');
-  const url = 'https://securityboat-assignment-lw1p.onrender.com/api/view/menu'
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -21,8 +21,8 @@ function FoodOrder() {
         setMenu(response.data);
 
       } catch (err) {
-        console.error('Error fetching menu:', err.response || err.message || err);
-        setError(err.response?.data?.error || 'An error occurred. Please try again.');
+        console.error('Error fetching menu:');
+        setError('An error occurred. Please try again.');
       }
     };
 

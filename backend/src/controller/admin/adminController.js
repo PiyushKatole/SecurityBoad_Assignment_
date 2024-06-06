@@ -57,7 +57,7 @@ const adminLogin = async(req , res) =>{
 
 const viewAdmin = async (req, res) => {
     try {
-        const findData = await Admin.find({}, { _id: 0, password: 0, __v: 0 }); 
+        const findData = await Admin.find({}, { _id: 0, password: 0, __v: 0 }); // projection
 
         if (!findData) {
             return res.status(400).json({ message: "Sorry we don't have any data..." })

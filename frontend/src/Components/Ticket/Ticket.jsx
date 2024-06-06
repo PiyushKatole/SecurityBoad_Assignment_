@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Ticket() {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(localStorage.getItem('email'));
     const [number, setNumber] = useState('');
     const [movie, setMovie] = useState('');
     const [seat, setSeat] = useState('');
@@ -20,12 +20,12 @@ function Ticket() {
             const payload = { email, number, movie, seat: parseInt(seat) };
             console.log('Request payload:', payload);
 
-            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/booked/seat', payload);
+            const response = await axios.post('http://localhost:8001/api/booked/seat', payload);
 
             console.log('Response:', response.data);
             setSuccessMessage('Ticket booked successfully! Redirecting to home...');
             setTimeout(() => {
-                navigate('/');
+                navigate('/viewticket');
             }, 2000);
 
         } catch (error) {
@@ -40,7 +40,7 @@ function Ticket() {
     };
 
     return (
-        <div className='container mt-4' style={{ width: '35vw' }}>
+        <div className='container mt-4' style={{ width: '480px' }}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Book Ticket</h1>
@@ -55,7 +55,6 @@ function Ticket() {
                                 id="floatingEmail"
                                 placeholder="name@example.com"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                             <label htmlFor="floatingEmail">Email address</label>

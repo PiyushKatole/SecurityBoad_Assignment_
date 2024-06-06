@@ -16,7 +16,7 @@ const createSeats = async (req, res) => {
                     screen,
                     row,
                     number,
-                    isBooked: isBooked || false
+                    isBooked: isBooked || false  //if you give any value he update in db otherwise he update false
                 });
             }
         }

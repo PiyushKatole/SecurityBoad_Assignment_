@@ -2,7 +2,6 @@ import { Order, Menu } from '../../model/foodSchema.js'
 
 const placeOrder = async (req, res) => {
     const { user, items } = req.body;
-    console.log("jaskjaklsjkl", items);
     try {
         let totalPrice = 0;
         for (let i = 0; i < items.length; i++) {
@@ -31,12 +30,12 @@ const placeOrder = async (req, res) => {
 
 
 
+
 // Get all orders for a user
 const getUserOrders = async (req, res) => {
-    const { user } = req.params;
-
+    // const { user } = req.body;
     try {
-        const orders = await Order.find({ user });
+        const orders = await Order.find();
         res.status(200).json(orders);
     } catch (error) {
         console.error(error);
@@ -45,11 +44,10 @@ const getUserOrders = async (req, res) => {
 };
 
 const updateOrderStatus = async (req, res) => {
-    const { orderId } = req.params;
-    const { status, paymentStatus } = req.body;
+    const {users , status, paymentStatus} = req.body;
 
     try {
-        const order = await Order.findById(orderId);
+        const order = await Order.user({users});
 
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
@@ -73,10 +71,11 @@ const updateOrderStatus = async (req, res) => {
 };
 
 const cancelOrder = async (req, res) => {
-    const { orderId } = req.params;
+    const { users } = req.body;
 
     try {
-        const order = await Order.findById(orderId);
+        const order = await Order.findOneAndDelete({users});
+        console.log(order);
 
         if (!order) {
             return res.status(404).json({ error: 'Order not found' });
@@ -87,7 +86,7 @@ const cancelOrder = async (req, res) => {
 
         await order.save();
 
-        res.status(200).json(order);
+        res.status(200).json({message:"Order cancel successfully"});
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });

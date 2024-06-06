@@ -3,22 +3,21 @@ import { Link } from 'react-router-dom';
 
 function Footer() {
     return (
-        <div className="container">
-            <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top" style={{ backgroundColor: 'black' }}>
-                <p className="col-md-4 mb-0 text-white">© 2024 Company, Inc</p>
+        <div class="container">
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
 
-                <a href="/" className="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                    <svg className="bi me-2" width="40" height="32"><use xlinkHref="#bootstrap"></use></svg>
-                </a>
+                    <li className="nav-item"> <Link to='/' className="nav-link px-2 text-muted " style={{fontSize:'20px' , fontWeight:'500'}}>Home</Link></li>
 
-                <ul className="nav col-md-4 justify-content-end">
-                    <li className="nav-item"> <Link to='/' className="nav-link px-2 text-white">Home</Link></li>
+                    <li className="nav-item"> <Link to='/ticket' className="nav-link px-2 text-muted" style={{fontSize:'20px' , fontWeight:'500'}}>Ticket</Link></li>
 
-                    <li className="nav-item"> <Link to='/ticket' className="nav-link px-2 text-white">Ticket</Link></li>
-
-                    <li className="nav-item"> <Link to='/food' className="nav-link px-2 text-white">Food Order</Link></li>
-
-                    
+                    <li className="nav-item"> <Link to='/food' className="nav-link px-2 text-muted" style={{fontSize:'20px' , fontWeight:'500'}}>Food Order</Link></li>
+                </ul>
+                <p>© 2021 Company, Inc. All rights reserved.</p>
+                <ul class="list-unstyled d-flex">
+                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                    <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
                 </ul>
             </footer>
         </div>

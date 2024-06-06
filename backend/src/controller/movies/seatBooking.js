@@ -1,6 +1,6 @@
 import { Seat, Show, Booking } from '../../model/moviesSchema.js';
 import users from  '../../model/userSchema.js'
-import findConsecutiveSeats from '../../middleware/seatBookingMiddleware.js'
+import findSeats from '../../middleware/seatBookingMiddleware.js'
 
 const seatBooking = async (req, res) => {
     const { email, movie, seat, number } = req.body;
@@ -19,7 +19,7 @@ const seatBooking = async (req, res) => {
 
         const availableSeats = await Seat.find({ screen: findShow.screen, isBooked: false });
 
-        const bookedSeats = findConsecutiveSeats(availableSeats, seat);
+        const bookedSeats = findSeats(availableSeats, seat);
         if (!bookedSeats) {
             return res.status(400).json({ error: `Not enough consecutive seats available` });
         }

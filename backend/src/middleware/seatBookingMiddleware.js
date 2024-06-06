@@ -1,16 +1,16 @@
-const findConsecutiveSeats = (seats, count) => {
-    const consecutiveSeats = [];
+const findSeats = (seats, count) => {
+    const storeSeats = [];
     for (let i = 0; i < seats.length; i++) {
         if (!seats[i].isBooked) {
-            consecutiveSeats.push(seats[i]);
-            if (consecutiveSeats.length === count) {
-                return consecutiveSeats;
+            storeSeats.push(seats[i]);
+            if (storeSeats.length === count) {
+                return storeSeats;
             }
         } else {
-            consecutiveSeats.length = 0; 
+            storeSeats.length = 0; 
         }
     }
     return null;
 };
 
-export default findConsecutiveSeats
+export default findSeats

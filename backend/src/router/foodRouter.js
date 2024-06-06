@@ -18,7 +18,7 @@ router.delete('/api/delete/item' ,adminVerifyToken , deletedMenu)
 
 router.post('/api/order/place' , placeOrder)
 
-router.get('/api/get/order' ,adminVerifyToken , getUserOrders)
+router.get('/api/get/order' , getUserOrders)
 
 router.put('/api/update/order' ,adminVerifyToken , updateOrderStatus)
 

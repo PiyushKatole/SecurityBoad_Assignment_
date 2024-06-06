@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+const url = 'https://securityboat-assignment-lw1p.onrender.com/api/order/place'
 
 const OrderFood = () => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(localStorage.getItem('email'));
     const [item, setItem] = useState('');
     const [quantity, setQuantity] = useState(1);
     const [error, setError] = useState('');
@@ -21,24 +22,21 @@ const OrderFood = () => {
         };
 
         try {
-            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/order/place', payload);
+            const response = await axios.post(url, payload);
             console.log('Response:', response.data);
             setSuccessMessage('Order placed successfully!');
             setTimeout(() => {
                 navigate('/');
             }, 2000);
+            
         } catch (error) {
-            console.error('Error response:', error);
-            if (error.response) {
-                setError(error.response.data.error || 'Something went wrong, please try again.');
-            } else {
-                setError('Something went wrong, please try again.');
-            }
+            console.error('Error response:', error);        
+            setError('Something went wrong, please try again.')
         }
     };
 
     return (
-        <div className='container mt-4' style={{ width: '35vw' }}>
+        <div className='container mt-4' style={{ width: '500px' }}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Order Food</h1>
@@ -58,18 +56,27 @@ const OrderFood = () => {
                             />
                             <label htmlFor="floatingInput">Email address</label>
                         </div>
+
                         <div className="form-floating mb-3">
-                            <input
-                                type="text"
-                                className="form-control rounded-3"
-                                id="floatingItem"
-                                placeholder="Food Item"
-                                value={item}
+                            <select 
+                                className="form-select" 
+                                id="floatingMovie" 
+                                aria-label="Default select example" 
+                                value={item} 
                                 onChange={(e) => setItem(e.target.value)}
                                 required
-                            />
-                            <label htmlFor="floatingItem">Food Item</label>
+                            >
+                                <option value="">Select Food</option>
+                                <option value="Cheeseburger">Cheeseburger</option>
+                                <option value="Pizza">Pizza</option>
+                                <option value="Chocolate Milkshake">Chocolate Milkshake</option>
+                                <option value="Caramel Popcorn">Caramel Popcorn</option>
+                                <option value="Popcorn">Popcorn</option>
+                                <option value="Iced Coffee">Iced Coffee</option>
+                            </select>
+                            <label htmlFor="floatingMovie">Movie</label>
                         </div>
+
                         <div className="form-floating mb-3">
                             <input
                                 type="number"

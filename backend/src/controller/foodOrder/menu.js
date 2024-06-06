@@ -20,7 +20,7 @@ const addMenu = async(req , res) => {
 
 const viewMenu = async (req, res) => {
     try {
-        const getMenu = await Menu.find()
+        const getMenu = await Menu.find({})
         res.status(200).json(getMenu);
     } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ const updatedMenu = async (req, res) => {
 
         const updatedMenu = await Menu.findOneAndUpdate(
             {name},{ $set: {...req.body} },
-            { new: true, runValidators: true }
+            { new: true}
         );
 
         if (!updatedMenu) {

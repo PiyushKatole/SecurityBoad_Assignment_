@@ -8,6 +8,7 @@ function Signup() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -16,25 +17,31 @@ function Signup() {
         setSuccessMessage('');
 
         try {
-            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/user/signup', { name, email, password });
+            const response = await axios.post('http://localhost:8001/api/user/signup', { name, email, password });
+
+            if(response.email == email){
+                console.log("already signup user");
+            }
 
             setSuccessMessage('Signup successful! Redirecting to login...');
+            
             setTimeout(() => {
                 navigate('/login');
             }, 2000); 
         } catch (err) {
-            setError(err.response?.data?.message || 'An error occurred. Please try again.');
+            console.log(err);
+            setError('An error occurred. Please try again.',);
         }
     };
 
     return (
-        <div className='container mt-4' style={{ width: '35vw' }}>
+        <div className='container mt-4' style={{ width: '460px' }}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Signup</h1>
                 </div>
 
-                <div className="modal-body p-5 pt-0">
+                <div className="modal-body p-5 pt-0 mt-4">
                     <form className="" onSubmit={handleSubmit}>
                         <div className="form-floating mb-3">
                             <input
@@ -49,7 +56,7 @@ function Signup() {
                             <label htmlFor="floatingName">Name</label>
                         </div>
 
-                        <div className="form-floating mb-3">
+                        <div className="form-floating mb-3 mt-4 ">
                             <input
                                 type="email"
                                 className="form-control rounded-3"
@@ -62,7 +69,7 @@ function Signup() {
                             <label htmlFor="floatingInput">Email address</label>
                         </div>
 
-                        <div className="form-floating mb-3">
+                        <div className="form-floating mb-3 mt-4">
                             <input
                                 type="password"
                                 className="form-control rounded-3"
@@ -75,16 +82,10 @@ function Signup() {
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
 
-                        <button className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Signup</button>
-                        {error && <small className="text-danger">{error}</small>}
-                        {successMessage && <small className="text-success">{successMessage}</small>}
-                        <hr className="my-4" />
-                        <h2 className="fs-5 fw-bold mb-3">Or use a third-party</h2>
+                        <button className="w-100 mb-2 mt-4 btn btn-lg rounded-3 btn-primary" type="submit">Signup</button>
+                        {error && <small className="text-danger" style={{fontSize:'20px' , fontWeight:'500'}}>{error}</small>}
+                        {successMessage && <small className="text-success" style={{fontSize:'20px',fontWeight:'500'}}>{successMessage}</small>}
 
-                        <button className="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="button">
-                            <svg className="bi me-1" width="16" height="16"><use xlinkHref="#github"></use></svg>
-                            Sign up with GitHub
-                        </button>
                     </form>
                 </div>
             </div>
