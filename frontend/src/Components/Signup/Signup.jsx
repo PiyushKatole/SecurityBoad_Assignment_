@@ -30,12 +30,12 @@ function Signup() {
             }, 2000); 
         } catch (err) {
             console.log(err);
-            setError('An error occurred. Please try again.',);
+            setError('User already signup this account',);
         }
     };
 
     return (
-        <div className='container mt-4' style={{ width: '460px' }}>
+        <div className='container mt-4' style={{  width: '24rem' , background:'#EEF7FF'}}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Signup</h1>
@@ -83,7 +83,7 @@ function Signup() {
                         </div>
 
                         <button className="w-100 mb-2 mt-4 btn btn-lg rounded-3 btn-primary" type="submit">Signup</button>
-                        {error && <small className="text-danger" style={{fontSize:'20px' , fontWeight:'500'}}>{error}</small>}
+                        {error && <small className="text-danger" style={{fontSize:'16px' , fontWeight:'500'}}>{error}</small>}
                         {successMessage && <small className="text-success" style={{fontSize:'20px',fontWeight:'500'}}>{successMessage}</small>}
 
                     </form>

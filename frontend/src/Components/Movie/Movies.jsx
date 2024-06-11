@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Banner from '../Banner/Banner';
+import imageBanner from '../../assets/kingdom.jpg'
 
 const url = 'https://securityboat-assignment-lw1p.onrender.com/api/get/movies'
 
@@ -24,9 +25,9 @@ function Movies() {
 
   return (
     <>
-    <Banner/>
+    {/* <Banner/> */}
     <div className="container">
-      <div className="container mt-4" style={{ background: '#F1E5D1', borderRadius: '10px' }}>
+      <div className="container mt-4" style={{ borderRadius: '10px' }}>
         <h2>Released movie</h2>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mt-2">
           {movies.slice(0, 8).map((movie) => (
@@ -41,7 +42,7 @@ function Movies() {
         </div>
 
       </div>
-      <div className="container mt-4" style={{ background: '#F1E5D1', borderRadius: '10px' }}>
+      <div className="container mt-4" style={{ borderRadius: '10px' }}>
 
         <h3>Upcomming Movies</h3>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4 mt-2 ">

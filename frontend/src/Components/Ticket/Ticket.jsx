@@ -20,7 +20,7 @@ function Ticket() {
             const payload = { email, number, movie, seat: parseInt(seat) };
             console.log('Request payload:', payload);
 
-            const response = await axios.post('http://localhost:8001/api/booked/seat', payload);
+            const response = await axios.post('https://securityboat-assignment-lw1p.onrender.com/api/booked/seat', payload);
 
             console.log('Response:', response.data);
             setSuccessMessage('Ticket booked successfully! Redirecting to home...');
@@ -30,17 +30,12 @@ function Ticket() {
 
         } catch (error) {
             console.error('Error response:', error);
-            if (error.response) {
-                console.error('Error response data:', error.response.data);
-                setError(error.response.data.error || 'Something went wrong, please check it.');
-            } else {
-                setError('Something went wrong, please try again.');
-            }
+           setError("Ticket already sold..")
         }
     };
 
     return (
-        <div className='container mt-4' style={{ width: '480px' }}>
+        <div className='container mt-4' style={{ width: '25rem' , background:'#EEF7FF', borderRadius:'10px'}}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Book Ticket</h1>
@@ -109,7 +104,7 @@ function Ticket() {
                         </div>
 
                         <button className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Book Ticket</button>
-                        {error && <small className="text-danger" style={{fontSize:'20px'}}>{error}</small>}
+                        {error && <small className="text-danger" style={{fontSize:'16px'}}>{error}</small>}
                         {successMessage && <small className="text-success" style={{fontSize:'20px'}}>{successMessage}</small>}
                     </form>
                 </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import foodBanner from '../../assets/cake.png'
 const url = 'https://securityboat-assignment-lw1p.onrender.com/api/view/menu'
 
 function FoodOrder() {
@@ -9,6 +10,7 @@ function FoodOrder() {
 
   useEffect(() => {
     const fetchMenu = async () => {
+
       try {
         const token = localStorage.getItem('token');
         console.log(token);
@@ -22,7 +24,7 @@ function FoodOrder() {
 
       } catch (err) {
         console.error('Error fetching menu:');
-        setError('An error occurred. Please try again.');
+        setError('An error occurred. Please Login your account.');
       }
     };
 
@@ -30,7 +32,9 @@ function FoodOrder() {
   }, [url]);
 
   return (
-    <div className="container mt-4">
+    <>
+    <div className='container' style={{backgroundImage:`url(${foodBanner})` ,backgroundSize:'cover', height:'70vh'}}></div>
+    <div className="container mt-4" >
       {error && <div className="alert alert-danger">{error}</div>}
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {menu.length > 0 ? (
@@ -43,7 +47,6 @@ function FoodOrder() {
                   )}
                   <div className="card-body">
                     <h4 className="card-title">{item.name}</h4>
-                    <p className="card-text">{item.description}</p>
                     <h5 className="card-text">price: ₹{item.price}</h5>
                   </div>
                 </div>
@@ -58,6 +61,7 @@ function FoodOrder() {
       </div>
 
     </div >
+    </>
   );
 }
 

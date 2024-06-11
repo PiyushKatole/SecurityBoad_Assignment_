@@ -1,6 +1,6 @@
 import express from 'express';
 import {addMenu , viewMenu , updatedMenu , deletedMenu} from '../controller/foodOrder/menu.js'
-import {placeOrder , getUserOrders , updateOrderStatus , cancelOrder} from'../controller/foodOrder/order.js'
+import {placeOrder , getUserOrders , updateOrderStatus , cancelOrder , getAllOrders} from'../controller/foodOrder/order.js'
 import {adminVerifyToken} from '../middleware/adminAuthentication.js'
 
 const router = express.Router()
@@ -18,7 +18,9 @@ router.delete('/api/delete/item' ,adminVerifyToken , deletedMenu)
 
 router.post('/api/order/place' , placeOrder)
 
-router.get('/api/get/order' , getUserOrders)
+router.post('/api/get/order' , getUserOrders)
+
+router.get('/api/get/all/order' , getAllOrders)
 
 router.put('/api/update/order' ,adminVerifyToken , updateOrderStatus)
 

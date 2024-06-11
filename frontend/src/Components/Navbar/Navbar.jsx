@@ -1,33 +1,35 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import SearchMovies from '../Movie/SearchMovies';
+import Banner from '../Banner/Banner';
 
 function Navbar() {
+    const check = useLocation().pathname
     const [menu, setMenu] = useState('home');
     const [searchKey, setSearchKey] = useState('');
     const [name, setName] = useState('')
 
 
     const handleSearch = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
     };
 
 
-    const searchChangeHandler=(event)=>{
+    const searchChangeHandler = (event) => {
         setName(event.target.value)
     }
 
-    const searchClickHandler=()=>{
+    const searchClickHandler = () => {
         setSearchKey(name)
         setName("")
     }
 
     return (
         <>
-            <header className="p-3 text-bg-dark">
+            <header className="p-3 text-bg-dark mb-2">
                 <div className="container">
                     <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                         <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -57,8 +59,8 @@ function Navbar() {
                         <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 text-white" role="search" onSubmit={handleSearch}>
                             <input
                                 type="search"
-                                className="form-control form-control-dark text-bg-dark"
-                                placeholder="Search..."
+                                className="form-control form-control-dark text-bg-white"
+                                placeholder="search movies...."
                                 aria-label="Search"
                                 value={name}
                                 onChange={searchChangeHandler}
@@ -67,7 +69,7 @@ function Navbar() {
 
                         <div className="text-end">
 
-                        <button type="button" className="btn btn-outline-light me-2" onClick={searchClickHandler} >Search</button>
+                            <button type="button" className="btn btn-outline-light me-2" onClick={searchClickHandler} >Search</button>
 
                             <Link to='/login'><button type="button" className="btn btn-warning">Login</button></Link>
                             {/* <Link to='/signup'><button type="button" className="btn btn-success m-2">Sign-up</button></Link> */}
@@ -75,8 +77,11 @@ function Navbar() {
                     </div>
                 </div>
             </header>
+            {check === "/" && <>
+                <Banner />
+                <SearchMovies searchKey={searchKey} />
+            </>}
 
-            <SearchMovies searchKey={searchKey}  />
         </>
     );
 }

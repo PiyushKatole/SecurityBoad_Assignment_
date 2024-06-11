@@ -44,7 +44,7 @@ const userLogin = async(req , res) => {
             console.log(token);
             res.status(200).json({ message: "successfully login...", token , email})
         } else {
-            return res.status(400).json({ error: "password is not matching..."})
+            return res.status(401).json({ error: "password is not matching..."})
         }
 
     } catch (error) {

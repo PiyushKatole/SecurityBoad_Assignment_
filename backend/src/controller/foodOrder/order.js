@@ -32,10 +32,22 @@ const placeOrder = async (req, res) => {
 
 
 // Get all orders for a user
-const getUserOrders = async (req, res) => {
-    // const { user } = req.body;
+const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find();
+        res.status(200).json(orders);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
+const getUserOrders = async (req, res) => {
+    const {users} = req.body
+    console.log(users);
+    try {
+        const orders = await Order.findOne({users});
+        console.log(orders);
         res.status(200).json(orders);
     } catch (error) {
         console.error(error);
@@ -93,4 +105,4 @@ const cancelOrder = async (req, res) => {
     }
 };
 
-export { placeOrder, getUserOrders, updateOrderStatus, cancelOrder }
+export { placeOrder, getUserOrders, updateOrderStatus, cancelOrder , getAllOrders }

@@ -36,7 +36,7 @@ const OrderFood = () => {
     };
 
     return (
-        <div className='container mt-4' style={{ width: '500px' }}>
+        <div className='container mt-4' style={{ width: '24rem' }}>
             <div className="modal-content rounded-4 shadow">
                 <div className="modal-header p-5 pb-4">
                     <h1 className="fw-bold mb-0 fs-2">Order Food</h1>
